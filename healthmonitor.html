@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Monitoring</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 10px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+        .form-group input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 15px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            width: 100%;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            background-color: #e9ecef;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <h2>Health Monitoring</h2>
+        <form id="healthForm">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" required>
+            </div>
+            <div class="form-group">
+                <label for="age">Age:</label>
+                <input type="number" id="age" required>
+            </div>
+            <div class="form-group">
+                <label for="height">Height (cm):</label>
+                <input type="number" id="height" required>
+            </div>
+            <div class="form-group">
+                <label for="bloodPressure">Blood Pressure (mmHg):</label>
+                <input type="number" id="bloodPressure" required>
+            </div>
+            <div class="form-group">
+                <label for="temperature">Temperature (°C):</label>
+                <input type="number" step="0.1" id="temperature" required>
+            </div>
+            <button type="button" class="btn" onclick="checkHealth()">Submit</button>
+        </form>
+        <div id="result" class="result" style="display: none;"></div>
+    </div>
+
+    <script>
+        function checkHealth() {
+            const name = document.getElementById('name').value;
+            const age = document.getElementById('age').value;
+            const height = document.getElementById('height').value;
+            const bloodPressure = document.getElementById('bloodPressure').value;
+            const temperature = document.getElementById('temperature').value;
+            let advice = "";
+
+            // Blood Pressure
+            if (bloodPressure < 90) {
+                advice += "Your blood pressure is low. Consider increasing your salt intake and drinking more water. ";
+            } else if (bloodPressure > 140) {
+                advice += "Your blood pressure is high. Avoid salty foods and manage stress. ";
+            } else {
+                advice += "Your blood pressure is normal. Keep up the good work! ";
+            }
+
+            // Temperature
+            if (temperature < 36) {
+                advice += "Your temperature is below normal. Keep yourself warm and stay hydrated. ";
+            } else if (temperature > 37.5) {
+                advice += "You have a fever. Rest and drink plenty of fluids. Consider seeing a doctor if it persists. ";
+            } else {
+                advice += "Your temperature is normal. ";
+            }
+
+            // Height
+            if (height < 150) {
+                advice += "Consider a balanced diet rich in vitamins and minerals to support your growth. ";
+            } else if (height > 190) {
+                advice += "Ensure you maintain good posture and engage in regular exercise to support your height. ";
+            } else {
+                advice += "Your height is within the normal range. Maintain a healthy lifestyle to support your growth. ";
+            }
+
+            document.getElementById('result').innerHTML = `<strong>Health Advice for ${name} (${age} years old):</strong> <br>${advice}`;
+            document.getElementById('result').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Health Consultation Booking</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 10px;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="logo1.jpg" alt="logo">
+          </div>
+    
+        
+    
+      <button class="nav-toggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav>
+        <ul>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#contact">Contact Us </a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+ 
+        <section class="home-section">
+            <div class="home-overlay">
+              <div class="home-content" style="font-size: 16px; line-height: 1.6; text-align: center; padding: 20px; max-width: 800px; margin: 0 auto;">
+                <h2 style="font-size: 35px; color: rgb(6, 5, 73);"> <br> Welcome HealthHub</h2>
+                <p><h1 style="font-size: 20px; color: rgb(12, 54, 3);">At HealthHub, we empower individuals to take charge of their well-being
+                     by providing expert advice, essential health information, 
+                     and convenient services to ensure a healthier lifestyle from the comfort of home.</p>
+                    </h1>
+              </div>
+            </div>
+            <br>
+            
+          </section>
+    
+    <div class="container">
+        <h2>Book Consultation</h2>
+        <form action="checkout.php" method="post">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" required>
+            <label for="gender">Gender:</label>
+            <select id="gender" name="gender" required>
+                <option value="">Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
+            <label for="marital_status">Marital Status:</label>
+            <select id="marital_status" name="marital_status" required>
+                <option value="">Select Marital Status</option>
+                <option value="single">Single</option>
+                <option value="married">Married</option>
+                <option value="divorced">Divorced</option>
+                <option value="widowed">Widowed</option>
+            </select>
+            <label for="employment_status">Employment Status:</label>
+            <select id="employment_status" name="employment_status" required>
+                <option value="">Select Employment Status</option>
+                <option value="employed">Employed</option>
+                <option value="unemployed">Unemployed</option>
+                <option value="student">Student</option>
+                <option value="retired">Retired</option>
+            </select>
+            <label for="therapist">Choose Therapist:</label>
+            <select id="therapist" name="therapist" required>
+                <option value="">Select Therapist</option>
+                <option value="male1">Dr. John Doe (Male)</option>
+                <option value="male2">Dr. Michael Smith (Male)</option>
+                <option value="male3">Dr. David Johnson (Male)</option>
+                <option value="male4">Dr. William Brown (Male)</option>
+                <option value="male5">Dr. James Wilson (Male)</option>
+                <option value="female1">Dr. Emily Taylor (Female)</option>
+                <option value="female2">Dr. Jennifer Martinez (Female)</option>
+                <option value="female3">Dr. Jessica Anderson (Female)</option>
+                <option value="female4">Dr. Ashley Garcia (Female)</option>
+                <option value="female5">Dr. Sarah Lee (Female)</option>
+            </select>
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required>
+            <label for="time">Time:</label>
+            <input type="time" id="time" name="time" required>
+            <button type="submit">Book Appointment</button>
+        </form>
+    </div>
+    <script>
+        document.querySelector('form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var name = document.getElementById('name').value;
+            var time = document.getElementById('time').value;
+            alert('Hello, ' + name + '! Your appointment is scheduled for ' + time + '.');
+        });
+    </script>
+</body>
+</html>

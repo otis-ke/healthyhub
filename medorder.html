@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medicine Order</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 10px;
+        }
+        h2, h3 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+        .form-group input, .form-group select, .form-group textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 15px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            width: 100%;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .cart {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            background-color: #e9ecef;
+        }
+        .cart-items {
+            margin-bottom: 10px;
+        }
+        .checkout {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <h2>Order Medicine Online</h2>
+        <form id="medicineForm">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone:</label>
+                <input type="tel" id="phone" required>
+            </div>
+            <div class="form-group">
+                <label for="location">Location to be Delivered:</label>
+                <input type="text" id="location" required>
+            </div>
+            <div class="form-group">
+                <label for="time">Preferred Delivery Time:</label>
+                <input type="text" id="time" required>
+            </div>
+            <div class="form-group">
+                <label for="patientName">Name of Patient:</label>
+                <input type="text" id="patientName" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Description of Condition:</label>
+                <textarea id="description" rows="3" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="medicine">Medicine:</label>
+                <select id="medicine">
+                    <option value="Aspirin - $10">Aspirin - $10</option>
+                    <option value="Ibuprofen - $12">Ibuprofen - $12</option>
+                    <option value="Paracetamol - $8">Paracetamol - $8</option>
+                    <option value="Amoxicillin - $15">Amoxicillin - $15</option>
+                    <option value="Ciprofloxacin - $20">Ciprofloxacin - $20</option>
+                    <!-- Add more medicines as needed -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="quantity">Quantity:</label>
+                <input type="number" id="quantity" min="1" required>
+            </div>
+            <button type="button" class="btn" onclick="addToCart()">Add to Cart</button>
+        </form>
+        <div class="cart" id="cart">
+            <h3>Cart</h3>
+            <div id="cartItems" class="cart-items"></div>
+            <div class="form-group">
+                <label for="paymentMethod">Payment Method:</label>
+                <select id="paymentMethod">
+                    <option value="Bank of Asia">Bank of Asia</option>
+                    <option value="Bikash Payment">Bikash Payment</option>
+                    <option value="National Bank">National Bank</option>
+                    <option value="PayPal">PayPal</option>
+                </select>
+            </div>
+            <button type="button" class="btn" onclick="checkout()">Proceed to Checkout</button>
+        </div>
+        <div class="checkout" id="checkoutForm">
+            <h3>Checkout</h3>
+            <form id="paymentForm">
+                <div class="form-group">
+                    <label for="cardNumber">Card Number:</label>
+                    <input type="text" id="cardNumber" required>
+                </div>
+                <div class="form-group">
+                    <label for="cardName">Name on Card:</label>
+                    <input type="text" id="cardName" required>
+                </div>
+                <div class="form-group">
+                    <label for="expiryDate">Expiry Date:</label>
+                    <input type="text" id="expiryDate" placeholder="MM/YY" required>
+                </div>
+                <div class="form-group">
+                    <label for="cvv">CVV:</label>
+                    <input type="text" id="cvv" required>
+                </div>
+                <button type="button" class="btn" onclick="completeOrder()">Pay Now</button>
+            </form>
+        </div>
+        <div id="orderSummary" class="cart" style="display: none;"></div>
+    </div>
+
+    <script>
+        let cart = [];
+
+        function addToCart() {
+            const medicine = document.getElementById('medicine').value;
+            const quantity = document.getElementById('quantity').value;
+            if (medicine && quantity > 0) {
+                cart.push({ medicine, quantity });
+                updateCart();
+            }
+        }
+
+        function updateCart() {
+            const cartItems = document.getElementById('cartItems');
+            cartItems.innerHTML = '';
+            cart.forEach((item, index) => {
+                cartItems.innerHTML += `<p>${item.medicine} - Quantity: ${item.quantity}</p>`;
+            });
+            document.getElementById('cart').style.display = 'block';
+        }
+
+        function checkout() {
+            document.getElementById('checkoutForm').style.display = 'block';
+        }
+
+        function completeOrder() {
+            const cardNumber = document.getElementById('cardNumber').value;
+            const cardName = document.getElementById('cardName').value;
+            const expiryDate = document.getElementById('expiryDate').value;
+            const cvv = document.getElementById('cvv').value;
+
+            if (cardNumber && cardName && expiryDate && cvv) {
+                const orderSummary = document.getElementById('orderSummary');
+                orderSummary.innerHTML = `<h3>Order Summary</h3>
+                <p>Name: ${document.getElementById('name').value}</p>
+                <p>Email: ${document.getElementById('email').value}</p>
+                <p>Phone: ${document.getElementById('phone').value}</p>
+                <p>Location: ${document.getElementById('location').value}</p>
+                <p>Delivery Time: ${document.getElementById('time').value}</p>
+                <p>Patient Name: ${document.getElementById('patientName').value}</p>
+                <p>Description: ${document.getElementById('description').value}</p>
+                <h4>Medicines Ordered:</h4>`;
+                cart.forEach(item => {
+                    orderSummary.innerHTML += `<p>${item.medicine} - Quantity: ${item.quantity}</p>`;
+                });
+                orderSummary.innerHTML += `<h4>Payment Method: ${document.getElementById('paymentMethod').value}</h4>`;
+                orderSummary.innerHTML += `<p style="color: green;">Payment Successful!</p>`;
+                orderSummary.style.display = 'block';
+                document.getElementById('checkoutForm').style.display = 'none';
+            } else {
+                alert('Please fill in all payment details');
+            }
+        }
+    </script>
+</body>
+</html>
