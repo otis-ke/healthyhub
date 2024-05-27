@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controller">
+    <children>
+        <Label text="Pharmacy Cart System"/>
+        <TextField fx:id="medicineField" promptText="Medicine"/>
+        <TextField fx:id="quantityField" promptText="Quantity"/>
+        <Button text="Add to Cart" onAction="#addToCart"/>
+        <TextArea fx:id="cartArea" editable="false"/>
+        <Button text="Checkout" onAction="#checkout"/>
+        
+        <!-- Checkout Form -->
+        <VBox fx:id="checkoutForm" spacing="10" visible="false">
+            <TextField fx:id="nameField" promptText="Name"/>
+            <TextField fx:id="emailField" promptText="Email"/>
+            <TextField fx:id="phoneField" promptText="Phone"/>
+            <TextField fx:id="locationField" promptText="Location"/>
+            <TextField fx:id="deliveryTimeField" promptText="Delivery Time"/>
+            <TextField fx:id="patientNameField" promptText="Patient Name"/>
+            <TextField fx:id="descriptionField" promptText="Description"/>
+            <ChoiceBox fx:id="paymentMethodChoiceBox">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Credit Card"/>
+                        <String fx:value="Debit Card"/>
+                    </FXCollections>
+                </items>
+            </ChoiceBox>
+            <TextField fx:id="cardNumberField" promptText="Card Number"/>
+            <TextField fx:id="cardNameField" promptText="Card Holder Name"/>
+            <TextField fx:id="expiryDateField" promptText="Expiry Date"/>
+            <TextField fx:id="cvvField" promptText="CVV"/>
+            <Button text="Complete Order" onAction="#completeOrder"/>
+        </VBox>
+        
+        <!-- Order Summary -->
+        <TextArea fx:id="orderSummaryArea" editable="false"/>
+    </children>
+</VBox>
